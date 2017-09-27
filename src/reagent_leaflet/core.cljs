@@ -1,5 +1,6 @@
 (ns reagent-leaflet.core
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent]
+            [leaflet      :as L]))
 
 ;;;;;;;;;
 ;; Define the React lifecycle callbacks to manage the LeafletJS
@@ -10,17 +11,17 @@
 (defn- leaflet-did-mount [this]
   "Initialize LeafletJS map for a newly mounted map component."
   (let [mapspec (:mapspec (reagent/state this))
-        leaflet (js/L.map (:id mapspec))
+        leaflet (L.map (:id mapspec))
         view (:view mapspec)
         zoom (:zoom mapspec)]
     (.setView leaflet (clj->js @view) @zoom)
     (doseq [{:keys [type url] :as layer-spec} (:layers mapspec)]
       (let [layer (case type
-                    :tile (js/L.tileLayer
+                    :tile (L.tileLayer
                            url
                            (clj->js {:attribution (:attribution layer-spec)})
                                     )
-                    :wms (js/L.tileLayer.wms
+                    :wms (L.tileLayer.wms
                           url
                           (clj->js {:format "image/png"
                                     :fillOpacity 1.0
@@ -74,16 +75,16 @@
 (defmulti create-shape :type)
 
 (defmethod create-shape :polygon [{:keys [coordinates]}]
-  (js/L.polygon (clj->js coordinates)
+  (L.polygon (clj->js coordinates)
                         #js {:color "red"
                              :fillOpacity 0.5}))
 
 (defmethod create-shape :line [{:keys [coordinates]}]
-  (js/L.polyline (clj->js coordinates)
+  (L.polyline (clj->js coordinates)
                  #js {:color "blue"}))
 
 (defmethod create-shape :point [{:keys [coordinates]}]
-  (js/L.circle (clj->js (first coordinates))
+  (L.circle (clj->js (first coordinates))
                10
                #js {:color "green"}))
 
@@ -127,4 +128,3 @@
      :component-did-mount leaflet-did-mount
      :component-will-update leaflet-will-update
      :render leaflet-render}))
-

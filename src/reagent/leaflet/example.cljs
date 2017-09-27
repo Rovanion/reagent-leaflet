@@ -1,6 +1,6 @@
-(ns reagent-leaflet.example
+(ns reagent.leaflet.example
   (:require [reagent.core :as reagent :refer [atom]]
-            [reagent-leaflet.core :refer [leaflet]]
+            [reagent.leaflet.core :refer [leaflet]]
             [figwheel.client :as fw :include-macros true]))
 
 ;; Define geometries that are drawn on the map.

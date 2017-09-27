@@ -1,4 +1,4 @@
-(ns reagent-leaflet.core
+(ns reagent.leaflet.core
   (:require [reagent.core :as reagent]
             [leaflet      :as L]))
 
@@ -65,7 +65,7 @@
 (defn- leaflet-render [this]
   (let [mapspec (-> this reagent/state :mapspec)]
   [:div {:id (:id mapspec)
-         :style {:width (:width mapspec)
+         :style {:width  (:width mapspec)
                  :height (:height mapspec)}}]))
 
 ;;;;;;;;;;
@@ -115,16 +115,3 @@
             ;;(.log js/console "Added: " (pr-str geom))
             (.addTo shape leaflet)
             (recur (assoc new-geometries-map geom shape) geometries)))))))
-
-
-
-;;;;;;;;;
-;; The LeafletJS Reagent component.
-
-(defn leaflet [mapspec]
-  "A LeafletJS map component."
-  (reagent/create-class
-    {:get-initial-state (fn [_] {:mapspec mapspec})
-     :component-did-mount leaflet-did-mount
-     :component-will-update leaflet-will-update
-     :render leaflet-render}))

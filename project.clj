@@ -1,4 +1,4 @@
-(defproject reagent-leaflet "0.1.0-SNAPSHOT"
+(defproject reagent-leaflet "0.1.0"
   :description "Reagent LeafletJS component"
   :dependencies [[org.clojure/clojurescript "1.9.908"]
                  [reagent                   "0.7.0"]

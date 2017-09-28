@@ -19,8 +19,7 @@
       (let [layer (case type
                     :tile (L.tileLayer
                            url
-                           (clj->js {:attribution (:attribution layer-spec)})
-                                    )
+                           (clj->js layer-spec))
                     :wms (L.tileLayer.wms
                           url
                           (clj->js {:format "image/png"

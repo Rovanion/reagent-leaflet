@@ -9,7 +9,7 @@
 
 
 (defn leaflet [mapspec]
-  "A LeafletJS map component."
+  "A Reagent component containing a LeafletJS map."
   (reagent/create-class
     {:get-initial-state (fn [_] {:mapspec mapspec})
      :component-did-mount core/leaflet-did-mount

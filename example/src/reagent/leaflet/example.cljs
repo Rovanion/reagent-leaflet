@@ -1,7 +1,6 @@
 (ns reagent.leaflet.example
-  (:require [reagent.core :as reagent :refer [atom]]
-            [reagent.leaflet.core :refer [leaflet]]
-            [figwheel.client :as fw :include-macros true]))
+  (:require [reagent.core    :as reagent :refer [atom]]
+            [reagent.leaflet :refer [leaflet]]))
 
 ;; Define geometries that are drawn on the map.
 (def geometries (atom [{:type :polygon
@@ -82,9 +81,7 @@
 
 
 
-(defn ^:export main []
+(defn ^:export -main []
   (reagent/render-component [demo] (.getElementById js/document "example-app")))
 
-(fw/watch-and-reload
-  ;; :websocket-url "ws://localhost:3449/figwheel-ws" default
-  :jsload-callback (fn [] (main))) ;; optional callback
+(-main)
